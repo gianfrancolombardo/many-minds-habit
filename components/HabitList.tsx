@@ -14,31 +14,31 @@ interface Props {
 }
 
 export const HabitList: React.FC<Props> = ({ habits, themeColor, onToggle, onEdit, onDelete, onReorder }) => {
-  const today = new Date().toISOString().split('T')[0]; 
+  const today = new Date().toISOString().split('T')[0];
   const completedCount = habits.filter(h => h.completedDates.some(d => d.startsWith(today))).length;
   const totalCount = habits.length;
   const isAllDone = totalCount > 0 && completedCount === totalCount;
-  
-  const progressState = totalCount === 0 
-    ? 'empty' 
-    : isAllDone 
-      ? 'completed' 
+
+  const progressState = totalCount === 0
+    ? 'empty'
+    : isAllDone
+      ? 'completed'
       : 'progress';
 
   return (
     <div className="flex-1 flex flex-col gap-4">
-      
+
       {/* Progress Bar (Moved to Top) */}
       {totalCount > 0 && (
         <div className="mb-2">
           <div className="flex justify-between items-end mb-2 px-1">
-             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tu Progreso</span>
-             <span className={`text-xs font-bold text-${themeColor}-600`}>
-                {Math.round((completedCount / totalCount) * 100)}%
-             </span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tu Progreso</span>
+            <span className={`text-xs font-bold text-${themeColor}-600`}>
+              {Math.round((completedCount / totalCount) * 100)}%
+            </span>
           </div>
-          <div className="h-3 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-            <motion.div 
+          <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
+            <motion.div
               className={`h-full bg-${themeColor}-500`}
               initial={{ width: 0 }}
               animate={{ width: `${(completedCount / totalCount) * 100}%` }}
@@ -49,7 +49,7 @@ export const HabitList: React.FC<Props> = ({ habits, themeColor, onToggle, onEdi
       )}
 
       {/* Atomic Copy Header */}
-      <motion.div 
+      <motion.div
         key={progressState}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ export const HabitList: React.FC<Props> = ({ habits, themeColor, onToggle, onEdi
       {/* Empty State */}
       {totalCount === 0 && (
         <div className="flex flex-col items-center justify-center py-12 text-slate-300">
-          <div className="w-16 h-16 mb-4 rounded-full bg-slate-100 flex items-center justify-center">
+          <div className="w-16 h-16 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
             <span className="text-3xl">🌱</span>
           </div>
           <p className="text-slate-400 font-medium">Sin hábitos aún.</p>
@@ -74,7 +74,7 @@ export const HabitList: React.FC<Props> = ({ habits, themeColor, onToggle, onEdi
       <Reorder.Group axis="y" values={habits} onReorder={onReorder} className="flex flex-col gap-3 pb-24">
         <AnimatePresence mode='popLayout'>
           {habits.map((habit) => (
-            <HabitItem 
+            <HabitItem
               key={habit.id}
               habit={habit}
               themeColor={themeColor}

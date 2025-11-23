@@ -16,7 +16,7 @@ interface Props {
 export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, onSwitch, onAdd, onUpdate, onDelete }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [isEditingList, setIsEditingList] = useState(false);
-  
+
   // State for creating/editing
   const [formName, setFormName] = useState('');
   const [formColor, setFormColor] = useState('teal');
@@ -55,12 +55,12 @@ export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, on
   return (
     <div className="flex flex-col gap-4 mb-2">
       <div className="flex items-center justify-between px-1">
-        <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Perfiles</h2>
-        <button 
+        <h2 className="text-sm font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Perfiles</h2>
+        <button
           onClick={() => setIsEditingList(!isEditingList)}
           className={clsx(
             "p-1 transition-colors rounded-full",
-            isEditingList ? "text-slate-800 bg-slate-200" : "text-slate-400 hover:text-slate-600"
+            isEditingList ? "text-slate-800 bg-slate-200 dark:bg-slate-700 dark:text-slate-200" : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
           )}
         >
           <Settings size={16} />
@@ -92,7 +92,7 @@ export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, on
                   }}
                   className={clsx(
                     "flex flex-col items-center gap-2 transition-all duration-200 p-2 rounded-xl min-w-[72px]",
-                    isActive ? `bg-white shadow-lg ring-2 ${ringClass} scale-105` : "hover:bg-white/50 opacity-70 hover:opacity-100"
+                    isActive ? `bg-white dark:bg-slate-800 shadow-lg ring-2 ${ringClass} scale-105` : "hover:bg-white/50 dark:hover:bg-slate-800/50 opacity-70 hover:opacity-100"
                   )}
                 >
                   <div className={clsx(
@@ -100,7 +100,7 @@ export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, on
                     colorClass
                   )}>
                     {profile.name.charAt(0).toUpperCase()}
-                    
+
                     {/* Edit Indicator Overlay */}
                     {isEditingList && (
                       <div className="absolute inset-0 bg-black/20 rounded-full flex items-center justify-center backdrop-blur-[1px]">
@@ -108,17 +108,17 @@ export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, on
                       </div>
                     )}
                   </div>
-                  <span className={clsx("text-xs font-medium truncate max-w-[64px]", isActive ? "text-slate-900" : "text-slate-500")}>
+                  <span className={clsx("text-xs font-medium truncate max-w-[64px]", isActive ? "text-slate-900 dark:text-slate-200" : "text-slate-500 dark:text-slate-400")}>
                     {profile.name}
                   </span>
                 </button>
-                
+
                 {/* Delete Button */}
                 {isEditingList && profiles.length > 1 && (
                   <button
                     onClick={(e) => {
-                        e.stopPropagation();
-                        onDelete(profile.id);
+                      e.stopPropagation();
+                      onDelete(profile.id);
                     }}
                     className="absolute -top-1 -right-1 bg-red-100 text-red-600 rounded-full p-1 hover:bg-red-500 hover:text-white transition-colors shadow-sm z-10"
                   >
@@ -136,7 +136,7 @@ export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, on
             onClick={handleStartAdd}
             className="flex flex-col items-center gap-2 p-2 min-w-[72px] opacity-50 hover:opacity-100 transition-opacity flex-shrink-0"
           >
-            <div className="w-12 h-12 rounded-full border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 bg-white/30">
+            <div className="w-12 h-12 rounded-full border-2 border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-400 bg-white/30 dark:bg-slate-800/30">
               <Plus size={20} />
             </div>
             <span className="text-xs font-medium text-slate-400">Nuevo</span>
@@ -153,19 +153,19 @@ export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, on
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-100">
+            <div className="bg-white dark:bg-slate-900 rounded-xl p-4 shadow-sm border border-slate-100 dark:border-slate-800">
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-slate-400 uppercase">
-                        {editingProfileId ? 'Editar Perfil' : 'Crear Perfil'}
-                    </span>
+                  <span className="text-xs font-bold text-slate-400 uppercase">
+                    {editingProfileId ? 'Editar Perfil' : 'Crear Perfil'}
+                  </span>
                 </div>
                 <input
                   type="text"
                   placeholder="Nombre (Ej. Personal)"
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
-                  className="w-full text-slate-900 placeholder-slate-400 bg-slate-50 border-none rounded-lg p-2 focus:ring-2 focus:ring-slate-200"
+                  className="w-full text-slate-900 dark:text-slate-100 placeholder-slate-400 bg-slate-50 dark:bg-slate-800 border-none rounded-lg p-2 focus:ring-2 focus:ring-slate-200 dark:focus:ring-slate-700"
                   autoFocus
                 />
                 <div className="flex gap-2 justify-between items-center">
@@ -177,18 +177,18 @@ export const ProfileSwitcher: React.FC<Props> = ({ profiles, activeProfileId, on
                         className={clsx(
                           "w-6 h-6 rounded-full transition-transform",
                           `bg-${c.value}-500`,
-                          formColor === c.value ? "scale-125 ring-2 ring-offset-1 ring-slate-300" : "hover:scale-110"
+                          formColor === c.value ? "scale-125 ring-2 ring-offset-1 ring-slate-300 dark:ring-slate-600 dark:ring-offset-slate-900" : "hover:scale-110"
                         )}
                         title={c.name}
                       />
                     ))}
                   </div>
                   <div className="flex gap-2">
-                    <button onClick={resetForm} className="p-2 text-slate-400 hover:text-slate-600">
-                        <X size={18} />
+                    <button onClick={resetForm} className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                      <X size={18} />
                     </button>
-                    <button onClick={handleSubmit} className="p-2 bg-slate-900 text-white rounded-full">
-                        <Check size={18} />
+                    <button onClick={handleSubmit} className="p-2 bg-slate-900 dark:bg-slate-700 text-white rounded-full">
+                      <Check size={18} />
                     </button>
                   </div>
                 </div>

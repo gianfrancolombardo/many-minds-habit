@@ -36,7 +36,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const total = activeProfile.habits.length;
     if (total === 0) return;
-    
+
     const completed = activeProfile.habits.filter(isHabitCompletedToday).length;
     if (completed === total && total > 0) {
       // Simple debounce to prevent spamming confetti on reload
@@ -70,38 +70,38 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 font-sans flex flex-col">
       <Confetti active={showConfetti} />
-      
+
       {/* Header */}
       <header className={clsx(
         "pt-12 pb-4 transition-colors duration-500",
-        `bg-${activeProfile.themeColor}-50/50`
+        `bg-${activeProfile.themeColor}-50/50 dark:bg-${activeProfile.themeColor}-900/10`
       )}>
         <div className="max-w-3xl mx-auto px-6 w-full">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-                Hola, <span className={`text-${activeProfile.themeColor}-600`}>{activeProfile.name}</span>
+              <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+                Hola, <span className={`text-${activeProfile.themeColor}-600 dark:text-${activeProfile.themeColor}-400`}>{activeProfile.name}</span>
               </h1>
-              <p className="text-slate-500 text-sm font-medium mt-1">
+              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mt-1">
                 {new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}
               </p>
             </div>
-            
+
             {/* View Toggle */}
-            <div className="flex bg-white p-1 rounded-xl shadow-sm border border-slate-100">
+            <div className="flex bg-white dark:bg-slate-900 p-1 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
               <button
                 onClick={() => setViewMode('list')}
                 className={clsx(
                   "p-2 rounded-lg transition-all relative",
-                  viewMode === 'list' ? "text-slate-900" : "text-slate-400 hover:text-slate-600"
+                  viewMode === 'list' ? "text-slate-900 dark:text-slate-200" : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                 )}
               >
                 {viewMode === 'list' && (
-                  <motion.div 
+                  <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 bg-slate-100 rounded-lg"
+                    className="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-lg"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
@@ -111,13 +111,13 @@ const App: React.FC = () => {
                 onClick={() => setViewMode('stats')}
                 className={clsx(
                   "p-2 rounded-lg transition-all relative",
-                  viewMode === 'stats' ? "text-slate-900" : "text-slate-400 hover:text-slate-600"
+                  viewMode === 'stats' ? "text-slate-900 dark:text-slate-200" : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                 )}
               >
-                 {viewMode === 'stats' && (
-                  <motion.div 
+                {viewMode === 'stats' && (
+                  <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 bg-slate-100 rounded-lg"
+                    className="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-lg"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
@@ -125,9 +125,9 @@ const App: React.FC = () => {
               </button>
             </div>
           </div>
-          
-          <ProfileSwitcher 
-            profiles={state.profiles} 
+
+          <ProfileSwitcher
+            profiles={state.profiles}
             activeProfileId={state.activeProfileId}
             onSwitch={setActiveProfile}
             onAdd={addProfile}
@@ -149,7 +149,7 @@ const App: React.FC = () => {
               transition={{ duration: 0.2 }}
               className="flex-1 flex flex-col"
             >
-              <HabitList 
+              <HabitList
                 habits={activeProfile.habits}
                 themeColor={activeProfile.themeColor}
                 onToggle={toggleHabit}
@@ -166,7 +166,7 @@ const App: React.FC = () => {
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.2 }}
             >
-              <AnalyticsView 
+              <AnalyticsView
                 habits={activeProfile.habits}
                 themeColor={activeProfile.themeColor}
               />
@@ -178,7 +178,7 @@ const App: React.FC = () => {
       {/* Floating Action Button - Only visible in list mode */}
       <AnimatePresence>
         {viewMode === 'list' && (
-          <HabitModal 
+          <HabitModal
             themeColor={activeProfile.themeColor}
             habitToEdit={editingHabit}
             onClose={() => setEditingHabit(null)}
@@ -186,7 +186,7 @@ const App: React.FC = () => {
           />
         )}
       </AnimatePresence>
-      
+
     </div>
   );
 };

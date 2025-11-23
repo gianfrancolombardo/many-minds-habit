@@ -31,13 +31,13 @@ export const HabitItem: React.FC<Props> = ({ habit, themeColor, onToggle, onEdit
       <motion.div
         layout
         className={clsx(
-          "bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center gap-3 select-none",
-          isCompleted && "bg-slate-50/50"
+          "bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-3 select-none",
+          isCompleted && "bg-slate-50/50 dark:bg-slate-800/50"
         )}
       >
         {/* Drag Handle */}
         <div
-          className="touch-none p-1 text-slate-300 hover:text-slate-500 cursor-grab active:cursor-grabbing"
+          className="touch-none p-1 text-slate-300 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 cursor-grab active:cursor-grabbing"
           onPointerDown={(e) => dragControls.start(e)}
         >
           <GripVertical size={18} />
@@ -52,9 +52,9 @@ export const HabitItem: React.FC<Props> = ({ habit, themeColor, onToggle, onEdit
           <motion.div
             className={clsx(
               "w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors",
-              isCompleted 
-                ? `bg-${themeColor}-500 border-${themeColor}-500` 
-                : "border-slate-200 bg-white group-hover/check:border-slate-300"
+              isCompleted
+                ? `bg-${themeColor}-500 border-${themeColor}-500`
+                : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 group-hover/check:border-slate-300 dark:group-hover/check:border-slate-500"
             )}
             animate={{ scale: isCompleted ? [1, 1.2, 1] : 1 }}
             transition={{ duration: 0.3 }}
@@ -74,21 +74,21 @@ export const HabitItem: React.FC<Props> = ({ habit, themeColor, onToggle, onEdit
         <div className="flex-1 min-w-0 flex flex-col cursor-pointer" onClick={onToggle}>
           <div className="flex items-center gap-2">
             <span className="text-lg">{habit.icon}</span>
-            <motion.h3 
+            <motion.h3
               className={clsx(
                 "font-medium text-base truncate transition-colors",
-                isCompleted ? "text-slate-400 line-through decoration-slate-300" : "text-slate-800"
+                isCompleted ? "text-slate-400 dark:text-slate-500 line-through decoration-slate-300 dark:decoration-slate-600" : "text-slate-800 dark:text-slate-200"
               )}
             >
               {habit.title}
             </motion.h3>
           </div>
-          
+
           {/* Streak Indicator */}
           {habit.streak > 0 && (
             <div className="flex items-center gap-1 mt-1">
               <Flame size={12} className={clsx(isCompleted ? `text-${themeColor}-400` : "text-orange-400")} />
-              <span className={clsx("text-xs font-bold", isCompleted ? `text-${themeColor}-400` : "text-slate-500")}>
+              <span className={clsx("text-xs font-bold", isCompleted ? `text-${themeColor}-400` : "text-slate-500 dark:text-slate-400")}>
                 {habit.streak} día(s) racha
               </span>
             </div>
@@ -97,18 +97,18 @@ export const HabitItem: React.FC<Props> = ({ habit, themeColor, onToggle, onEdit
 
         {/* Actions - Visible now */}
         <div className="flex items-center gap-1">
-            <button 
-              onClick={(e) => { e.stopPropagation(); onEdit(); }}
-              className="p-2 text-slate-300 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-all"
-            >
-              <Pencil size={16} />
-            </button>
-            <button 
-              onClick={(e) => { e.stopPropagation(); onDelete(); }}
-              className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
-            >
-              <Trash2 size={16} />
-            </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); onEdit(); }}
+            className="p-2 text-slate-300 dark:text-slate-600 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-all"
+          >
+            <Pencil size={16} />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); onDelete(); }}
+            className="p-2 text-slate-300 dark:text-slate-600 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-all"
+          >
+            <Trash2 size={16} />
+          </button>
         </div>
 
       </motion.div>
