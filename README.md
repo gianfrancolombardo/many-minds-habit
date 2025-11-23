@@ -1,4 +1,4 @@
-# Atomic Daily
+# Many Minds Habits
 
 Un rastreador de hábitos minimalista y enfocado, inspirado en los principios del libro "Hábitos Atómicos". Esta aplicación está diseñada para ayudarte a construir consistencia a través de una interfaz limpia, perfiles personalizables y pequeñas celebraciones diarias.
 
